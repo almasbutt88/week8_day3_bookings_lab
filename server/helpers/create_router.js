@@ -64,6 +64,25 @@ const createRouter = function (collection) {
     });
 
 
+  router.put("/:id", (req, res) => {
+    const id = req.params.id;
+    console.log(req);
+    const updateData = req.body;
+    collection.updateOne(
+      {_id: ObjectID(id)},
+      {$set: updateData}
+    )
+    .then((result)=>{
+      res.json(result)
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500);
+      res.json({ status: 500, error: err });
+    });
+  })
+
+
   
 
   return router;
